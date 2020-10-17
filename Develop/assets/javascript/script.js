@@ -16,29 +16,42 @@ function writePassword() {
 
 //generates password critera based on user prompts
 function generatePassword() {
-  var passCount = prompt( "How many characters would you like your password to be (8-128)?" );
+  passCount = parseInt( prompt( "How many characters would you like your password to be (8-128)?" ) );
   //the final password parameters
   var passcrtiera = [];
 
-  if ( passCountValue >= 8 && passCount <= 128 ) {
-    passCountValue = parseInt( passCount );
+  //if user entered pass count is not 8-128
+  if ( !passCount ) {
+    alert( "Please enter a valid number between 8-128 if you would like to continue." );
+    //return generatePassword();
+  }
+  else if ( passCount < 8 || passCount > 128 ) {
+    alert( "Please enter a valid number between 8-128." );
+    return generatePassword();
+  }
+  else {
 
-    var upperCase = confirm( "Please click 'OK' if you would like to have UPPER CASE letters in your generated password; Otherwise click cancel to continue." );
-    var lowerCase = confirm( "Please click 'OK' if you would like to have 'lower case' letters in your generated password; Otherwise click cancel to continue." );
-    var specChar = confirm( "Please click 'OK' if you would like to have special characters in your generated password; Otherwise click cancel to continue." );
-    var numChar = confirm( "Please click 'OK' if you would like to have numbers in your generated password; Otherwise click cancel to continue." );
+    upperCase = confirm( "Please click 'OK' if you want UPPER CASE letters in your generated password; Otherwise click cancel to continue." );
+    lowerCase = confirm( "Please click 'OK' if you want '<em>lower case</em>' letters in your generated password; Otherwise click cancel to continue." );
+    specChar = confirm( "Please click 'OK' if you want special characters in your generated password; Otherwise click cancel to continue." );
+    numChar = confirm( "Please click 'OK' if you want numbers in your generated password; Otherwise click cancel to continue." );
     console.log( charCount, upperCase, lowerCase, specChar, numChar );
-  };
+  }
+}
+//uppercase criteria
 
-  //lowercase criteria
+//lowercase criteria
 
-  //uppercase criteria
+//numbercase criteria
 
-  //numbercase criteria
+//specChar criteria
 
-  //specChar criteria
+//randonmly calculate passcriteria
 
-  //randonmly calculate passcriteria
-
-  // Add event listener to generate button
-  generateBtn.addEventListener( 'click', writePassword );
+var upperCase;
+var lowerCase;
+var specChar;
+var numChar;
+var passCount;
+// Add event listener to generate button
+generateBtn.addEventListener( 'click', writePassword );
