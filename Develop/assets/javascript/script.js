@@ -1,5 +1,6 @@
 // Assignment Code
 var generateBtn = document.querySelector( '#generate' );
+var copyBtn = document.querySelector( '#copy' );
 
 //------------ASSIGN USER INPUT VARIABLES----------------//
 //values that will be defiend by the end user
@@ -137,5 +138,12 @@ function writePassword() {
   passwordText.value = newPassword;
 }
 
+function copyClip() {
+  let newPassword = document.querySelector( "#password" );
+  newPassword.select();
+  document.execCommand( 'copy' );
+}
+
 // Add event listener to generate button
 generateBtn.addEventListener( 'click', writePassword );
+copyBtn.addEventListener( 'click', copyClip );
