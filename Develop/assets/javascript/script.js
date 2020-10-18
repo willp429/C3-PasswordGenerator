@@ -1,139 +1,140 @@
-//generates password critera based on user prompts
-function writePassword() {
-  pwd.reset();
-  charCount = parseInt( prompt( "How many characters would you like your password to be (8-128)?" ) );
-
-  //if user entered pass count is not 8-128
-  if ( !charCount ) {
-    alert( "Please enter a valid number between 8-128 if you would like to continue." );
-  }
-  else if ( charCount < 8 || charCount > 128 ) {
-    alert( "Please enter a valid number between 8-128." );
-    return writePassword();
-  }
-  else {
-    pwd.upperCase = confirm( "Please click 'OK' if you want UPPERCASE letters in your generated password; Otherwise click cancel to continue." );
-    pwd.lowerCase = confirm( "Please click 'OK' if you want lowercase letters in your generated password; Otherwise click cancel to continue." );
-    pwd.specChar = confirm( "Please click 'OK' if you want $pec!al ch@r@cter$ in your generated password; Otherwise click cancel to continue." );
-    pwd.numChar = confirm( "Please click 'OK' if you want numb3rs in your generated password; Otherwise click cancel to continue." );
-    console.log( charCount, pwd.upperCase, pwd.lowerCase, pwd.specChar, pwd.numChar );
-  }
-
-  if ( !pwd.upperCase && !pwd.lowerCase && !pwd.numChar && !pwd.specChar ) {
-    alert( "Please select at least one criteria." )
-    return writePassword();
-  }
-
-  function generatePassword() {
-    if ( pwd.specChar === true && pwd.lowerCase === true && pwd.upperCase === true && pwd.numChar === true ) {
-      newPassword - options.all;
-      console.log( options.all );
-    }
-    else if ( pwd.specChar === true && pwd.lowerCase === true && pwd.upperCase === true ) {
-      newPassword - options.slu;
-      console.log( options.slu );
-    }
-    else if ( pwd.specChar === true && pwd.lowerCase === true && pwd.numbers === true ) {
-      newPassword - options.sln;
-      console.log( options.sln );
-    }
-    else if ( pwd.specChar === true && pwd.upperCase === true && pwd.numChar === true ) {
-      newPassword - options.sun;
-      console.log( options.sun );
-    }
-    else if ( pwd.lowerCase === true && pwd.upperCase === true && pwd.numChar === true ) {
-      newPassword - options.lun;
-      console.log( options.lun );
-    }
-    else if ( pwd.specChar === true && pwd.lowerCase === true ) {
-      newPassword - options.sl;
-      console.log( options.sl );
-    }
-    else if ( pwd.specChar === true && pwd.upperCase === true ) {
-      newPassword - options.su;
-      console.log( options.su );
-    }
-    else if ( pwd.specChar === true && pwd.numChar === true ) {
-      newPassword - options.sn;
-      console.log( options.sn );
-    }
-    else if ( pwd.lowerCase === true && pwd.upperCase === true ) {
-      newPassword - options.lu;
-      console.log( options.lu );
-    }
-    else if ( pwd.lowerCase === true && pwd.numChar === true ) {
-      newPassword - options.ln;
-      console.log( options.ln );
-    }
-    else if ( pwd.upperCase === true && pwd.numChar === true ) {
-      newPassword - options.un;
-      console.log( options.un );
-    }
-    else if ( pwd.specChar === true && pwd.lowerCase === true && pwd.upperCase === true && pwd.numChar === true ) {
-      newPassword - options.lu;
-      console.log( options.lu );
-    }
-    else if ( pwd.specChar === true ) {
-      newPassword - specials;
-      console.log( specials );
-    }
-    else if ( pwd.lowerCase === true ) {
-      newPassword - charactersLower;
-      console.log( charactersLower );
-    }
-    else if ( pwd.upperCase === true ) {
-      newPassword - charactersUpper;
-      console.log( charactersUpper );
-    }
-    else if ( pwd.specChar === true ) {
-      newPassword - numbers;
-      console.log( numbers );
-    }
-    var password = generatePassword();
-    //the final password parameters
-    newPassword = [];
-    var passwordText = document.querySelector( '#password' );
-    passwordText.value = password;
-  }
-}
-
-// generate button - variables to store generated values
+// Assignment Code
 var generateBtn = document.querySelector( '#generate' );
 
-//randonmly calculate passcriteria
+//------------ASSIGN USER INPUT VARIABLES----------------//
+//values that will be defiend by the end user
+//created outside of a function so they can be called by other functions(global variables)
 var charCount;
+var compiledChar;
+var newPassword = "";
 var pwd = {
   upperCase: true,
   lowerCase: true,
-  specChar: true,
   numChar: true,
+  specChar: true,
   reset: function () {
     this.upperCase = true;
     this.lowerCase = true;
     this.specChar = true;
-    this.numbers = true;
+    this.numChar = true;
   }
 }
 
-//character variable declaration
-var specials = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
-var charactersLower = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var charactersUpper = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+//values that will be used to generate the random password
+var specials = ".'):~;!-#%*$@=>[(&{}<?]^+/";
+var charactersLower = "abcdefghijklmnopqrstuvwxyz";
+var charactersUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numChar = "1234567890";
 
-//array to outline password combination outcomes
+//variables that outline all possibilites for adding together characters based on user input
 var options = {
-  all: specials + charactersLower + charactersUpper + numbers,
+  all: specials + charactersLower + charactersUpper + numChar,
   slu: specials + charactersLower + charactersUpper,
-  sln: specials + charactersLower + numbers,
-  sun: specials + charactersUpper + numbers,
-  lun: charactersLower + charactersUpper + numbers,
+  sln: specials + charactersLower + numChar,
+  sun: specials + charactersUpper + numChar,
+  lun: charactersLower + charactersUpper + numChar,
   sl: specials + charactersLower,
   su: specials + charactersUpper,
-  sn: specials + numbers,
+  sn: specials + numChar,
   lu: charactersLower + charactersUpper,
-  ln: charactersLower + numbers,
-  un: charactersUpper + numbers,
+  ln: charactersLower + numChar,
+  un: charactersUpper + numChar,
+}
+
+//---WRITE THE PASSWORD CRITERIA----//
+function generatePassword() {
+  //create a reset so the end user does not get caught in an infinite loop
+  pwd.reset();
+  let newPassword = "";
+  //TODO: need to reset charCount to nothing so if the end user wants to generate a second password that it doesn't combine the one prior perpetually...
+  charCount = null;
+  //we need to gather the critera for the password in order to generate one
+  charCount = parseInt( prompt( 'How many characters would you like your password to be? Please select a number between 8 and 128.' ) );
+  //check to see that a charCount number exists and determine if it is between 8 and 128
+  if ( !charCount ) {
+    alert( "Please enter a valid number between 8 and 128 if you would like to continue..." );
+  } else if ( charCount < 8 || charCount > 128 ) {
+    alert( "Please enter a valid number between 8 and 128" );
+    generatePassword();
+    //if a valid number exists, then run through the rest of the prompts to gather user criteria
+  } else {
+    pwd.upperCase = confirm( "Please click 'OK' if you would like to have 'UPPER CASE' letters in your generated password." );
+    pwd.lowerCase = confirm( "Please click 'OK' if you would like to have 'lower case' letters in your generated password." );
+    pwd.numChar = confirm( "Please click 'OK' if you would like to have numbers in your generated password." );
+    pwd.specChar = confirm( "Please click 'OK' if you would like to have special characters (#, %, *, $, @, etc.) in your generated password." );
+
+    //check to see what values are being logged
+    //console.log(charCount, pwd.upperCase, pwd.lowerCase, pwd.specChar, pwd.numChar);
+  };
+
+  //----CRITERIA CHECK----//
+  //the requirment is that at least one critera be selected in order to generate a password
+  if ( !pwd.upperCase && !pwd.lowerCase && !pwd.specChar && !pwd.numChar ) {
+    alert( "Please select at least one criteria..." );
+    generatePassword(); //TODO: this could affect workflow negatively by sending the user back to the begining, work on adjusting this later
+  }
+
+  if ( pwd.specChar === true && pwd.lowerCase === true && pwd.upperCase === true && pwd.numChar === true ) {
+    compiledChar = options.all;
+
+  } else if ( pwd.specChar === true && pwd.lowerCase === true && pwd.upperCase === true ) {
+    compiledChar = options.slu;
+
+  } else if ( pwd.specChar === true && pwd.lowerCase === true && pwd.numChar === true ) {
+    compiledChar = options.sln;
+
+  } else if ( pwd.specChar === true && pwd.upperCase === true && pwd.numChar === true ) {
+    compiledChar = options.sun;
+
+  } else if ( pwd.lowerCase === true && pwd.upperCase === true && pwd.numChar === true ) {
+    compiledChar = options.lun;
+
+  } else if ( pwd.specChar === true && pwd.lowerCase === true ) {
+    compiledChar = options.sl;
+
+  } else if ( pwd.specChar === true && pwd.upperCase === true ) {
+    compiledChar = options.su;
+
+  } else if ( pwd.specChar === true && pwd.numChar === true ) {
+    compiledChar = options.sn;
+
+  } else if ( pwd.lowerCase === true && pwd.upperCase === true ) {
+    compiledChar = options.lu;
+
+  } else if ( pwd.lowerCase === true && pwd.numChar === true ) {
+    compiledChar = options.ln;
+
+  } else if ( pwd.upperCase === true && pwd.numChar === true ) {
+    compiledChar = options.un;
+
+  } else if ( pwd.upperCase === true ) {
+    compiledChar = charactersUpper;
+
+  } else if ( pwd.lowerCase === true ) {
+    compiledChar = charactersLower;
+
+  } else if ( pwd.numChar === true ) {
+    compiledChar = numChar;
+
+  } else if ( pwd.specChar === true ) {
+    compiledChar = specials;
+  };
+
+  //----GENERATE THE PASSWORD----//
+  for ( i = 0; i < charCount; i++ ) {
+    var char = Math.floor( Math.random() * compiledChar.length );
+    newPassword += compiledChar.charAt( char, char + 1 );
+  }
+  //LEARN: Why do I need the return here?
+  return newPassword;
+}
+
+// Write password to the #password input
+function writePassword() {
+  let newPassword = generatePassword();
+  var passwordText = document.querySelector( "#password" );
+
+  passwordText.value = newPassword;
 }
 
 // Add event listener to generate button
