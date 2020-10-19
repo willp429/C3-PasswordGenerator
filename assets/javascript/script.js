@@ -47,10 +47,11 @@ function generatePassword() {
   //create a reset so the end user does not get caught in an infinite loop
   pwd.reset();
   let newPassword = "";
-  //TODO: need to reset charCount to nothing so if the end user wants to generate a second password that it doesn't combine the one prior perpetually...
   charCount = null;
-  //we need to gather the critera for the password in order to generate one
+
+  //need to gather the critera for the password in order to generate one
   charCount = parseInt( prompt( 'How many characters would you like your password to be? Please select a number between 8 and 128.' ) );
+
   //check to see that a charCount number exists and determine if it is between 8 and 128
   if ( !charCount ) {
     alert( "Please enter a valid number between 8 and 128 if you would like to continue..." );
@@ -72,9 +73,9 @@ function generatePassword() {
   //the requirment is that at least one critera be selected in order to generate a password
   if ( !pwd.upperCase && !pwd.lowerCase && !pwd.specChar && !pwd.numChar ) {
     alert( "Please select at least one criteria..." );
-    generatePassword(); //TODO: this could affect workflow negatively by sending the user back to the begining, work on adjusting this later
+    generatePassword();
   }
-
+  //todo: research methods to shorten if/else if statements - must be an easier way???
   if ( pwd.specChar === true && pwd.lowerCase === true && pwd.upperCase === true && pwd.numChar === true ) {
     compiledChar = options.all;
 
